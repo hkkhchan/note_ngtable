@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular-sanitize.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular-resource.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular-route.js"></script>
+  <link rel="stylesheet" href="ng-table.min.css">
+  <script src="ng-table.min.js"></script>      
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+  <h1>test</h1>
+  <table ng-table="tableParams" class="table" show-filter="true">
+    <tr ng-repeat="user in $data">
+        <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+            {{user.name}}</td>
+        <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
+            {{user.age}}</td>
+    </tr>
+  </table>
+</body>
+  <script>
+    var app=angular.module("myApp", ["ngTable"]).
+    controller('myCtrl',function($scope,NgTableParams,$filter){
+      var data = [
+        {name: "John", age: 50},
+        {name: "Peter", age: 40},
+        {name: "Sam", age: 30},
+        {name: "Ken", age: 20}
+      ];
+      $scope.tableParams = new NgTableParams({
+        sorting: {age:'asc'}
+      }, { 
+/*            getData: function($def, params){
+                       data=$filter('orderBy')(data,params.orderBy());
+                       $defer.resolve(data);
+                     } */
+              dataset: data
+         });
+    });
+  </script>
+</html>
